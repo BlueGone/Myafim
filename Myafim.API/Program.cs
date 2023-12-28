@@ -1,5 +1,6 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Myafim.API.Endpoints;
 using Myafim.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,5 +31,8 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<MyafimDbContext>();
     await dbContext.Database.EnsureCreatedAsync();
 }
+
+app.RegisterTransactionsEndpoints();
+app.RegisterAccountsEndpoints();
 
 app.Run();
