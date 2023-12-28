@@ -1,9 +1,20 @@
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Myafim.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var sqliteConnection = new SqliteConnection("Data Source=:memory:");
+await sqliteConnection.OpenAsync();
+builder.Services.AddDbContext<MyafimDbContext>(optionsBuilder =>
+{
+    optionsBuilder.UseSqlite(sqliteConnection);
+});
 
 var app = builder.Build();
 
