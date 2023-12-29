@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Myafim.Domain;
+using Myafim.Domain.Models;
 using Myafim.Infrastructure;
 using Pagination.EntityFrameworkCore.Extensions;
 using static Microsoft.AspNetCore.Http.TypedResults;
