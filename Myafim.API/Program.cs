@@ -34,5 +34,6 @@ using (var scope = app.Services.CreateScope())
 
 app.RegisterTransactionsEndpoints();
 app.RegisterAccountsEndpoints();
+app.RegisterCategoriesEndpoints();
 
 app.Run();

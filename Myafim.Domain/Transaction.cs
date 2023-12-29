@@ -12,4 +12,7 @@ public class Transaction
 
     public int DestinationAccountId { get; set; }
     public Account DestinationAccount { get; set; } = null!;
+
+    public int? CategoryId { get; set; }
+    public Category? Category { get; set; } = null!;
 }
