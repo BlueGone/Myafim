@@ -14,6 +14,7 @@ public static class AccountsEndpoints
         var groupBuilder = app.MapGroup("/accounts");
 
         groupBuilder.MapGet("/", ListAccounts);
+        groupBuilder.MapGet("/{id:int}/balance", GetAccountBalance);
     }
 
     private static async Task<Ok<Pagination<Account>>> ListAccounts(
@@ -21,5 +22,12 @@ public static class AccountsEndpoints
         int page, int limit)
     {
         return Ok(await handler.HandleAsync(page, limit));
+    }
+    
+    private static async Task<Ok<long>> GetAccountBalance(
+        [FromServices] GetAccountBalanceHandler handler,
+        int id)
+    {
+        return Ok(await handler.HandleAsync(id));
     }
 }

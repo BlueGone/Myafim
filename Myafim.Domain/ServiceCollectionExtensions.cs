@@ -8,7 +8,10 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddHandlers(this IServiceCollection services)
     {
         services.AddScoped<ListAccountsHandler>();
+        services.AddScoped<GetAccountBalanceHandler>();
+
         services.AddScoped<ListCategoriesHandler>();
+
         services.AddScoped<ListTransactionsHandler>();
 
         return services;
