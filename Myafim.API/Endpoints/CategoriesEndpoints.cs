@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Myafim.Domain.Handlers;
 using Myafim.Domain.Models;
-using Myafim.Infrastructure;
 using Pagination.EntityFrameworkCore.Extensions;
 using static Microsoft.AspNetCore.Http.TypedResults;
 
@@ -13,13 +13,13 @@ public static class CategoriesEndpoints
     {
         var groupBuilder = app.MapGroup("/categories");
 
-        groupBuilder.MapGet("/", GetCategories);
+        groupBuilder.MapGet("/", ListCategories);
     }
 
-    private static async Task<Ok<Pagination<Category>>> GetCategories(
-        [FromServices] MyafimDbContext dbContext,
+    private static async Task<Ok<Pagination<Category>>> ListCategories(
+        [FromServices] ListCategoriesHandler handler,
         int page, int limit)
     {
-        return Ok(await dbContext.Categories.AsPaginationAsync(page, limit));
+        return Ok(await handler.HandleAsync(page, limit));
     }
 }
