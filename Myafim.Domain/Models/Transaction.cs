@@ -11,6 +11,8 @@ public class Transaction
     /// <remarks>Is expressed in minor units (e.g. cents).</remarks>
     public long Amount { get; set; }
 
+    public DateTimeOffset ValueDate { get; set; }
+
     [ForeignKey(nameof(SourceAccount))]
     public int SourceAccountId { get; set; }
     public Account SourceAccount { get; set; } = null!;
