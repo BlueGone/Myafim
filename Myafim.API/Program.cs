@@ -1,12 +1,16 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Myafim.API.Endpoints;
+using Myafim.Domain;
 using Myafim.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddHandlers();
+builder.Services.AddRepositories();
 
 var sqliteConnection = new SqliteConnection("Data Source=:memory:");
 await sqliteConnection.OpenAsync();
