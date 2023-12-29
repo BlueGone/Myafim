@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using Microsoft.EntityFrameworkCore;
-using Myafim.Domain;
+using Myafim.Domain.Models;
 
 namespace Myafim.Infrastructure;
 
