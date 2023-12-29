@@ -10,4 +10,11 @@ public class CategoriesRepository(MyafimDbContext context) : ICategoriesReposito
     {
         return await context.Categories.AsPaginationAsync(page, limit);
     }
+
+    public async Task<IReadOnlyCollection<Category>> CreateRangeAsync(IReadOnlyCollection<Category> categories)
+    {
+        await context.Categories.AddRangeAsync(categories);
+        await context.SaveChangesAsync();
+        return categories;
+    }
 }

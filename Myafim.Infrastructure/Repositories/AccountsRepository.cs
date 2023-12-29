@@ -20,4 +20,11 @@ public class AccountsRepository(MyafimDbContext context) : IAccountsRepository
                                account.OutgoingTransactions.Sum(transaction => transaction.Amount))
             .SingleOrDefaultAsync();
     }
+
+    public async Task<IReadOnlyCollection<Account>> CreateRangeAsync(IReadOnlyCollection<Account> accounts)
+    {
+        await context.Accounts.AddRangeAsync(accounts);
+        await context.SaveChangesAsync();
+        return accounts;
+    }
 }

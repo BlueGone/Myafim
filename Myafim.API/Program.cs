@@ -2,6 +2,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Myafim.API.Endpoints;
 using Myafim.Domain;
+using Myafim.FireflyIii.Client;
 using Myafim.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddFireflyIiiClient();
 builder.Services.AddHandlers();
 builder.Services.AddRepositories();
 
@@ -39,5 +41,6 @@ using (var scope = app.Services.CreateScope())
 app.RegisterTransactionsEndpoints();
 app.RegisterAccountsEndpoints();
 app.RegisterCategoriesEndpoints();
+app.RegisterImportFireflyIiiEndpoints();
 
 app.Run();

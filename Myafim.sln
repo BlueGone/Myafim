@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myafim.Domain", "Myafim.Dom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myafim.Infrastructure", "Myafim.Infrastructure\Myafim.Infrastructure.csproj", "{32D43A05-F80D-4B4C-BB4C-DAEB3B9D50CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myafim.FireflyIii.Client", "Myafim.FireflyIii.Client\Myafim.FireflyIii.Client.csproj", "{3010F5C9-C6FB-4D3C-ADB0-7F807DAC2784}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{32D43A05-F80D-4B4C-BB4C-DAEB3B9D50CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32D43A05-F80D-4B4C-BB4C-DAEB3B9D50CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32D43A05-F80D-4B4C-BB4C-DAEB3B9D50CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3010F5C9-C6FB-4D3C-ADB0-7F807DAC2784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3010F5C9-C6FB-4D3C-ADB0-7F807DAC2784}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3010F5C9-C6FB-4D3C-ADB0-7F807DAC2784}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3010F5C9-C6FB-4D3C-ADB0-7F807DAC2784}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -10,4 +10,11 @@ public class TransactionsRepository(MyafimDbContext context) : ITransactionsRepo
     {
         return await context.Transactions.AsPaginationAsync(page, limit);
     }
+
+    public async Task<IReadOnlyCollection<Transaction>> CreateRangeAsync(IReadOnlyCollection<Transaction> transactions)
+    {
+        await context.Transactions.AddRangeAsync(transactions);
+        await context.SaveChangesAsync();
+        return transactions;
+    }
 }

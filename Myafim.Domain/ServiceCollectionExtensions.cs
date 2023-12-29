@@ -14,6 +14,8 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<ListTransactionsHandler>();
 
+        services.AddScoped<ImportFireflyIiiIHandler>();
+
         return services;
     }
 }
