@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Myafim.API.Models;
+using Myafim.Domain.Filters;
 using Myafim.Domain.Handlers;
 using static Microsoft.AspNetCore.Http.TypedResults;
 
@@ -17,11 +18,19 @@ public static class TransactionsEndpoints
 
     private static async Task<Ok<PaginationDto<TransactionDto>>> ListTransactions(
         [FromServices] ListTransactionsHandler handler,
+        DateTimeOffset? minValueDate,
+        DateTimeOffset? maxValueDate,
         int page = 1, int limit = 50,
         CancellationToken cancellationToken = default)
     {
+        var filters = new TransactionsFilters
+        {
+            MinValueDate = minValueDate,
+            MaxValueDate = maxValueDate
+        };
+
         return Ok(PaginationDto<TransactionDto>.FromDomain(
-            await handler.HandleAsync(page, limit, cancellationToken),
+            await handler.HandleAsync(filters, page, limit, cancellationToken),
             TransactionDto.FromDomain));
     }
 }
