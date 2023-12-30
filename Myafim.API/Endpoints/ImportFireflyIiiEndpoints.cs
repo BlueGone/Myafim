@@ -14,10 +14,11 @@ public static class ImportFireflyIiiEndpoints
 
     private static async Task<NoContent> ImportFireflyIiiAsync(
         [FromServices] ImportFireflyIiiIHandler importFireflyIiiIHandler,
-        [FromBody] ImportFireflyIiiRequest request
+        [FromBody] ImportFireflyIiiRequest request,
+        CancellationToken cancellationToken = default
     )
     {
-        await importFireflyIiiIHandler.HandleAsync(request.BaseUri, request.Token);
+        await importFireflyIiiIHandler.HandleAsync(request.BaseUri, request.Token, cancellationToken);
         return TypedResults.NoContent();
     }
 }

@@ -4,8 +4,8 @@ namespace Myafim.Domain.Handlers;
 
 public class GetAccountBalanceHandler(IAccountsRepository accountsRepository)
 {
-    public Task<long> HandleAsync(int id)
+    public Task<long> HandleAsync(int id, CancellationToken cancellationToken = default)
     {
-        return accountsRepository.GetBalanceAsync(id);
+        return accountsRepository.GetBalanceAsync(id, cancellationToken);
     }
 }

@@ -6,8 +6,8 @@ namespace Myafim.Domain.Handlers;
 
 public class ListTransactionsHandler(ITransactionsRepository transactionsRepository)
 {
-    public Task<Pagination<Transaction>> HandleAsync(int page, int limit)
+    public Task<Pagination<Transaction>> HandleAsync(int page, int limit, CancellationToken cancellationToken = default)
     {
-        return transactionsRepository.ListAsync(page, limit);
+        return transactionsRepository.ListAsync(page, limit, cancellationToken);
     }
 }

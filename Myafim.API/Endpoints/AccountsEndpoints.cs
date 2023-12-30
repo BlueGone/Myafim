@@ -18,17 +18,19 @@ public static class AccountsEndpoints
 
     private static async Task<Ok<PaginationDto<AccountDto>>> ListAccounts(
         [FromServices] ListAccountsHandler handler,
-        int page = 1, int limit = 50)
+        int page = 1, int limit = 50,
+        CancellationToken cancellationToken = default)
     {
         return Ok(PaginationDto<AccountDto>.FromDomain(
-            await handler.HandleAsync(page, limit),
+            await handler.HandleAsync(page, limit, cancellationToken),
             AccountDto.FromDomain));
     }
     
     private static async Task<Ok<long>> GetAccountBalance(
         [FromServices] GetAccountBalanceHandler handler,
-        int id)
+        int id,
+        CancellationToken cancellationToken = default)
     {
-        return Ok(await handler.HandleAsync(id));
+        return Ok(await handler.HandleAsync(id, cancellationToken));
     }
 }

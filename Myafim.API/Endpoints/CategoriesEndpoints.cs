@@ -17,10 +17,11 @@ public static class CategoriesEndpoints
 
     private static async Task<Ok<PaginationDto<CategoryDto>>> ListCategories(
         [FromServices] ListCategoriesHandler handler,
-        int page = 1, int limit = 50)
+        int page = 1, int limit = 50,
+        CancellationToken cancellationToken = default)
     {
         return Ok(PaginationDto<CategoryDto>.FromDomain(
-            await handler.HandleAsync(page, limit),
+            await handler.HandleAsync(page, limit, cancellationToken),
             CategoryDto.FromDomain));
     }
 }

@@ -2,28 +2,28 @@ namespace Myafim.FireflyIii.Client;
 
 public partial class FireflyIiiClient
 {
-    public Task<IReadOnlyCollection<AccountRead>> ListAccountUnpaginatedAsync(Guid? x_Trace_Id = null, DateTimeOffset? date = null, AccountTypeFilter? type = null) =>
+    public Task<IReadOnlyCollection<AccountRead>> ListAccountUnpaginatedAsync(Guid? x_Trace_Id = null, DateTimeOffset? date = null, AccountTypeFilter? type = null, CancellationToken cancellationToken = default) =>
         UnpaginateAsync<AccountRead>(async page =>
         {
             var response =
-                await ListAccountAsync(x_Trace_Id: x_Trace_Id, limit: null, page: page, date: date, type: type);
+                await ListAccountAsync(x_Trace_Id: x_Trace_Id, limit: null, page: page, date: date, type: type, cancellationToken: cancellationToken);
 
             return (page < response.Meta.Pagination.Total_pages, response.Data);
         });
     
-    public Task<IReadOnlyCollection<TransactionRead>> ListTransactionUnpaginatedAsync(Guid? x_Trace_Id = null, DateTimeOffset? start = null, DateTimeOffset? end = null, TransactionTypeFilter? type = null) =>
+    public Task<IReadOnlyCollection<TransactionRead>> ListTransactionUnpaginatedAsync(Guid? x_Trace_Id = null, DateTimeOffset? start = null, DateTimeOffset? end = null, TransactionTypeFilter? type = null, CancellationToken cancellationToken = default) =>
         UnpaginateAsync<TransactionRead>(async page =>
         {
             var response =
-                await ListTransactionAsync(x_Trace_Id: x_Trace_Id, limit: null, page: page, start: start, end: end, type: type);
+                await ListTransactionAsync(x_Trace_Id: x_Trace_Id, limit: null, page: page, start: start, end: end, type: type, cancellationToken: cancellationToken);
 
             return (page < response.Meta.Pagination.Total_pages, response.Data);
         });
 
-    public Task<IReadOnlyCollection<CategoryRead>> ListCategoryUnpaginatedAsync(Guid? x_Trace_Id = null) =>
+    public Task<IReadOnlyCollection<CategoryRead>> ListCategoryUnpaginatedAsync(Guid? x_Trace_Id = null, CancellationToken cancellationToken = default) =>
         UnpaginateAsync<CategoryRead>(async page =>
         {
-            var response = await ListCategoryAsync(x_Trace_Id: x_Trace_Id, limit: null, page: page);
+            var response = await ListCategoryAsync(x_Trace_Id: x_Trace_Id, limit: null, page: page, cancellationToken: cancellationToken);
 
             return (page < response.Meta.Pagination.Total_pages, response.Data);
         });

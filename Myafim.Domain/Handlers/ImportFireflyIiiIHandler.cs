@@ -13,7 +13,7 @@ public class ImportFireflyIiiIHandler(
     ITransactionsRepository transactionsRepository
     )
 {
-    public async Task HandleAsync(Uri baseUri, string token)
+    public async Task HandleAsync(Uri baseUri, string token, CancellationToken cancellationToken = default)
     {
         var client = fireflyIiiClientFactory.CreateClient(baseUri, token);
 
@@ -21,7 +21,7 @@ public class ImportFireflyIiiIHandler(
             fireflyIiiAccounts,
             fireflyIiiTransactions,
             fireflyIiiCategories
-        ) = await RetrieveFireflyIiiDataAsync(client);
+        ) = await RetrieveFireflyIiiDataAsync(client, cancellationToken);
 
         var accounts = await accountsRepository.CreateRangeAsync(
             MakeAccounts(fireflyIiiAccounts));
@@ -76,15 +76,14 @@ public class ImportFireflyIiiIHandler(
             .ToList();
     }
 
-    private static async Task<(
-        IReadOnlyCollection<AccountRead> AccountReads,
-        IReadOnlyCollection<TransactionRead> TransactionReads,
-        IReadOnlyCollection<CategoryRead> CategoryReads
-    )> RetrieveFireflyIiiDataAsync(FireflyIiiClient client)
+    private static async
+        Task<(IReadOnlyCollection<AccountRead> AccountReads, IReadOnlyCollection<TransactionRead> TransactionReads,
+            IReadOnlyCollection<CategoryRead> CategoryReads)> RetrieveFireflyIiiDataAsync(FireflyIiiClient client,
+            CancellationToken cancellationToken = default)
     {
-        var accountReadsTask = client.ListAccountUnpaginatedAsync();
-        var transactionReadsTask = client.ListTransactionUnpaginatedAsync();
-        var categoryReadsTask = client.ListCategoryUnpaginatedAsync();
+        var accountReadsTask = client.ListAccountUnpaginatedAsync(cancellationToken: cancellationToken);
+        var transactionReadsTask = client.ListTransactionUnpaginatedAsync(cancellationToken: cancellationToken);
+        var categoryReadsTask = client.ListCategoryUnpaginatedAsync(cancellationToken: cancellationToken);
         await Task.WhenAll(accountReadsTask, transactionReadsTask, categoryReadsTask);
         return (
             await accountReadsTask,
