@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Myafim.API.Models;
 using Myafim.Domain.Handlers;
-using Myafim.Domain.Models;
-using Pagination.EntityFrameworkCore.Extensions;
 using static Microsoft.AspNetCore.Http.TypedResults;
 
 namespace Myafim.API.Endpoints;
@@ -17,11 +16,13 @@ public static class AccountsEndpoints
         groupBuilder.MapGet("/{id:int}/balance", GetAccountBalance);
     }
 
-    private static async Task<Ok<Pagination<Account>>> ListAccounts(
+    private static async Task<Ok<PaginationDto<AccountDto>>> ListAccounts(
         [FromServices] ListAccountsHandler handler,
         int page, int limit)
     {
-        return Ok(await handler.HandleAsync(page, limit));
+        return Ok(PaginationDto<AccountDto>.FromDomain(
+            await handler.HandleAsync(page, limit),
+            AccountDto.FromDomain));
     }
     
     private static async Task<Ok<long>> GetAccountBalance(
