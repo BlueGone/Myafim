@@ -8,6 +8,7 @@ namespace Myafim.Domain.Handlers;
 
 public class ImportFireflyIiiIHandler(
     FireflyIiiClientFactory fireflyIiiClientFactory,
+    IUnitOfWork unitOfWork,
     IAccountsRepository accountsRepository,
     ICategoriesRepository categoriesRepository,
     ITransactionsRepository transactionsRepository
@@ -23,12 +24,15 @@ public class ImportFireflyIiiIHandler(
             fireflyIiiCategories
         ) = await RetrieveFireflyIiiDataAsync(client, cancellationToken);
 
-        var accounts = await accountsRepository.CreateRangeAsync(
-            MakeAccounts(fireflyIiiAccounts));
-        var categories = await categoriesRepository.CreateRangeAsync(
-            MakeCategories(fireflyIiiCategories));
-        await transactionsRepository.CreateRangeAsync(
-            MakeTransactions(fireflyIiiTransactions, accounts, categories));
+        await unitOfWork.WithTransactionAsync(async () =>
+        {
+            var accounts = await accountsRepository.CreateRangeAsync(
+                MakeAccounts(fireflyIiiAccounts), cancellationToken);
+            var categories = await categoriesRepository.CreateRangeAsync(
+                MakeCategories(fireflyIiiCategories), cancellationToken);
+            await transactionsRepository.CreateRangeAsync(
+                MakeTransactions(fireflyIiiTransactions, accounts, categories), cancellationToken);
+        }, cancellationToken);
     }
 
     private static IReadOnlyCollection<Account> MakeAccounts(IReadOnlyCollection<AccountRead> fireflyIiiAccounts) =>
