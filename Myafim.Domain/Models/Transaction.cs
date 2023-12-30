@@ -8,6 +8,8 @@ public class Transaction
     [Key]
     public int Id { get; set; }
 
+    [MaxLength(80)]
+    public string? Description { get; set; }
     /// <remarks>Is expressed in minor units (e.g. cents).</remarks>
     public long Amount { get; set; }
 

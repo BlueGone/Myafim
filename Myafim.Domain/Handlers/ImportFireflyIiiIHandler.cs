@@ -65,6 +65,7 @@ public class ImportFireflyIiiIHandler(
             .Select(transaction => new Transaction
             {
                 Amount = (long) (decimal.Parse(transaction.Amount) * 100),
+                Description = transaction.Description,
                 ValueDate = transaction.Date,
                 SourceAccount = accountsByNames[transaction.Source_name],
                 DestinationAccount = accountsByNames[transaction.Destination_name],
