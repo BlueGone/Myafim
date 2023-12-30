@@ -18,7 +18,7 @@ public static class AccountsEndpoints
 
     private static async Task<Ok<PaginationDto<AccountDto>>> ListAccounts(
         [FromServices] ListAccountsHandler handler,
-        int page, int limit)
+        int page = 1, int limit = 50)
     {
         return Ok(PaginationDto<AccountDto>.FromDomain(
             await handler.HandleAsync(page, limit),
