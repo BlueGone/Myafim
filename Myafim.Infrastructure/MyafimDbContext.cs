@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Myafim.Domain.Models;
 
 namespace Myafim.Infrastructure;
@@ -18,6 +19,11 @@ public class MyafimDbContext : DbContext
         configurationBuilder
             .Properties<Rune>()
             .HaveConversion<RuneConverter>();
+
+        configurationBuilder
+            .Properties<DateTimeOffset>()
+            .HaveConversion<DateTimeOffsetToBinaryConverter>();
+
         base.ConfigureConventions(configurationBuilder);
     }
 }
