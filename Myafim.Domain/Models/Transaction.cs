@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Myafim.Domain.Requests;
 
 namespace Myafim.Domain.Models;
 
-public class Transaction
+public class Transaction : ICreateTransactionRequest
 {
     [Key]
     public int Id { get; set; }

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Myafim.Domain.Filters;
 using Myafim.Domain.Models;
 using Myafim.Domain.Repositories;
@@ -13,6 +14,19 @@ public class TransactionsRepository(MyafimDbContext context) : ITransactionsRepo
         return await context.Transactions
             .ApplyFilters(filters)
             .AsPaginationAsync(page, limit, cancellationToken: cancellationToken);
+    }
+    
+    public async Task<Transaction?> GetByIdAsync(int id, CancellationToken cancellationToken)
+    {
+        return await context.Transactions
+            .SingleOrDefaultAsync(transaction => transaction.Id == id, cancellationToken);
+    }
+
+    public async Task<Transaction> CreateAsync(Transaction transaction, CancellationToken cancellationToken)
+    {
+        await context.Transactions.AddAsync(transaction, cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
+        return transaction;
     }
 
     public async Task<IReadOnlyCollection<Transaction>> CreateRangeAsync(IReadOnlyCollection<Transaction> transactions, CancellationToken cancellationToken = default)

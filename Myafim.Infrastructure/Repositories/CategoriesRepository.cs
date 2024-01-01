@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Myafim.Domain.Models;
 using Myafim.Domain.Repositories;
 using Pagination.EntityFrameworkCore.Extensions;
@@ -9,6 +10,11 @@ public class CategoriesRepository(MyafimDbContext context) : ICategoriesReposito
     public async Task<Pagination<Category>> ListAsync(int page, int limit, CancellationToken cancellationToken = default)
     {
         return await context.Categories.AsPaginationAsync(page, limit, cancellationToken: cancellationToken);
+    }
+
+    public async Task<Category?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    {
+        return await context.Categories.SingleOrDefaultAsync(category => category.Id == id, cancellationToken);
     }
 
     public async Task<IReadOnlyCollection<Category>> CreateRangeAsync(IReadOnlyCollection<Category> categories, CancellationToken cancellationToken = default)

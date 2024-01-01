@@ -8,6 +8,6 @@ public class ListAccountsHandler(IAccountsRepository accountsRepository)
 {
     public Task<Pagination<Account>> HandleAsync(int page, int limit, CancellationToken cancellationToken = default)
     {
-        return accountsRepository.ListAsync(page, limit, cancellationToken);
+        return accountsRepository.ListAsync(new(), page, limit, cancellationToken);
     }
 }

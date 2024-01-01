@@ -13,6 +13,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ListCategoriesHandler>();
 
         services.AddScoped<ListTransactionsHandler>();
+        services.AddScoped<GetTransactionByIdHandler>();
+        services.AddScoped<CreateTransactionHandler>();
 
         services.AddScoped<ImportFireflyIiiIHandler>();
 

@@ -1,15 +1,26 @@
 using Microsoft.EntityFrameworkCore;
+using Myafim.Domain.Filters;
 using Myafim.Domain.Models;
 using Myafim.Domain.Repositories;
+using Myafim.Infrastructure.FiltersExtensions;
 using Pagination.EntityFrameworkCore.Extensions;
 
 namespace Myafim.Infrastructure.Repositories;
 
 public class AccountsRepository(MyafimDbContext context) : IAccountsRepository
 {
-    public async Task<Pagination<Account>> ListAsync(int page, int limit, CancellationToken cancellationToken = default)
+    public async Task<Pagination<Account>> ListAsync(AccountsFilters accountsFilters, int page, int limit, CancellationToken cancellationToken = default)
     {
-        return await context.Accounts.AsPaginationAsync(page, limit, cancellationToken: cancellationToken);
+        return await context.Accounts
+            .ApplyFilters(accountsFilters)
+            .AsPaginationAsync(page, limit, cancellationToken: cancellationToken);
+    }
+
+    public async Task<IReadOnlyCollection<Account>> ListRawAsync(AccountsFilters accountsFilters, CancellationToken cancellationToken = default)
+    {
+        return await context.Accounts
+            .ApplyFilters(accountsFilters)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task<long> GetBalanceAsync(int id, CancellationToken cancellationToken = default)

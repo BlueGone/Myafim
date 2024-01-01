@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Myafim.FireflyIii.Client\Myafim.FireflyIii.Client.csproj" />
+    <ProjectReference Include="..\Myafim.Utils\Myafim.Utils.csproj" />
   </ItemGroup>
 
 </Project>

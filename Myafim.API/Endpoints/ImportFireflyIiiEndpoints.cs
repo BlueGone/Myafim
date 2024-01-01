@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Myafim.API.Models;
 using Myafim.Domain.Handlers;
+using Myafim.Domain.Requests;
 
 namespace Myafim.API.Endpoints;
 
