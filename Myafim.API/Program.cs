@@ -9,7 +9,11 @@ using Myafim.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(s => s.CustomSchemaIds(SwaggerSchemaIdSelector.SelectSchemaId));
+builder.Services.AddSwaggerGen(s =>
+{
+    s.SupportNonNullableReferenceTypes();
+    s.CustomSchemaIds(SwaggerSchemaIdSelector.SelectSchemaId);
+});
 
 builder.Services.AddFireflyIiiClient();
 builder.Services.AddHandlers();
